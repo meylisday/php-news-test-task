@@ -1,0 +1,19 @@
+{
+    "name": "user/news-app",
+    "autoload": {
+        "psr-4": {
+            "App\\": "app/"
+        }
+    },
+    "authors": [
+        {
+            "name": "meylisday",
+            "email": "victory.sett@gmail.com"
+        }
+    ],
+    "require": {
+        "symfony/routing": "^6.3",
+        "symfony/http-foundation": "^6.3",
+        "twig/twig": "^3.7"
+    }
+}
