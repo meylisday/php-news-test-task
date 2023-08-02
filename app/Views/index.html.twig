@@ -1,0 +1,20 @@
+{% extends "base.html.twig" %}
+
+{% block title %}News{% endblock %}
+
+{% block body %}
+    <div class="container">
+        <img class="logo" src="../../public/images/logo.svg"/>
+        <div>
+            <div class="error">Wrong login data!</div>
+            <form method="POST" action="login">
+                <input type="text" id="username" name="username" placeholder="Username" required>
+
+                <input type="password" id="password" name="password"  placeholder="Password" required>
+
+                <button type="submit">Login</button>
+            </form>
+        </div>
+    </div>
+
+{% endblock %}

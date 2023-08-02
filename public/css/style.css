@@ -1,0 +1,73 @@
+html,
+body {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: sans-serif;
+    background-image: url(/public/images/waves.svg);
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+}
+
+.container {
+    display: flex;
+    flex-direction: column;
+    margin: 0 auto;
+    width: 30rem;
+}
+
+.logo {
+    height: 2rem;
+    margin: 2rem;
+}
+
+.error {
+    border: 1px solid #ffc0c0;
+    background-color: #fff0f0;
+    color: #d06b6b;
+    text-align: center;
+    padding: 1rem;
+    margin: 0.5rem 0;
+    font-size: 0.75rem;
+}
+
+.success {
+    border: 1px solid green;
+}
+
+input,
+textarea {
+    box-sizing: border-box;
+    width: 100%;
+    background: #c7c7c70f;
+    padding: 0.5rem 1rem;
+    border: 1px solid #f0f0f0;
+    margin: 0.5rem 0;
+    font-size: 0.6rem;
+    border-radius: 0.125rem;
+}
+
+textarea:focus,
+input:focus {
+    outline: none;
+    border: 1px solid #7f92ad;
+}
+
+input::placeholder {
+    color: #7f92ad;
+}
+
+button {
+    width: 100%;
+    font-size: 0.7rem;
+    background-color: #16396b;
+    border: none;
+    color: white;
+    padding: 1rem;
+    margin: 0.5rem 0;
+    border-radius: 0.125rem;
+}

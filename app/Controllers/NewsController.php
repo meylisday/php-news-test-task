@@ -1,37 +1,62 @@
 <?php
+
 namespace App\Controllers;
 
-use App\Core\Controller;
-use App\Database\DatabaseConnection;
-use App\Repositories\Interfaces\NewsRepositoryInterface;
+
+use App\Core\BaseController;
+use App\Core\View;
 use App\Repositories\MySQLNewsRepository;
 
-class NewsController extends Controller
+class NewsController extends BaseController
 {
-    private NewsRepositoryInterface $newsRepository;
+    public function create()
+    {
+        $this->checkAuthentication();
 
-    public function __construct() {
-        $pdo = DatabaseConnection::init();
-        $this->newsRepository = new MySQLNewsRepository($pdo);
+        $title = $_POST['title'];
+        $description = $_POST['description'];
+
+        if (empty($title) || empty($description)) {
+            //error
+        } else {
+            $newsRepository = new MySQLNewsRepository();
+            $newsRepository->createNews($title, $description);
+            header('Location: /news');
+            exit;
+        }
     }
 
-    public function createNews($title, $description) {
-        $this->newsRepository->createNews($title, $description);
+    public function update($id, $title, $description)
+    {
+        (new MySQLNewsRepository())->updateNews($id, $title, $description);
     }
 
-    public function updateNews($id, $title, $description) {
-        $this->newsRepository->updateNews($id, $title, $description);
+    public function delete(int $id)
+    {
+        $this->checkAuthentication();
+        if (empty($id)) {
+            //error
+        } else {
+            $newsRepository = new MySQLNewsRepository();
+            $newsRepository->deleteNews($id);
+
+            header('Location: /news');
+            exit;
+        }
     }
 
-    public function deleteNews($id) {
-        $this->newsRepository->deleteNews($id);
+    public function index()
+    {
+        $this->checkAuthentication();
+
+        $newsRepository = new MySQLNewsRepository();
+        $news = $newsRepository->getAllNews();
+
+        View::renderTemplate('news.html.twig', ['news' => $news]);
     }
 
-    public function getAllNews() {
-        return $this->newsRepository->getAllNews();
-    }
-
-    public function getNewsById($id) {
-        return $this->newsRepository->getNewsById($id);
+    public function getNewsById($id)
+    {
+        return (new MySQLNewsRepository())->getNewsById($id);
     }
 }

@@ -1,0 +1,41 @@
+{% extends "base.html.twig" %}
+
+{% block title %}News{% endblock %}
+
+{% block body %}
+    <h1>All news</h1>
+    <div class="news-list">
+        {% if news is not empty %}
+            <ul>
+                {% for newsItem in news %}
+                    <li>
+                        <strong>{{ newsItem.title }}</strong><br>
+                        {{ newsItem.description }}
+                        <span>
+                            <a href="#" title="Edit News">
+                                <img src="../../public/images/pencil.svg" width="16" height="16" alt="Edit Icon">
+                            </a>
+                            <a href="/news/delete/{{ newsItem.id }}" title="Delete News">
+                                <img src="../../public/images/close.svg" width="16" height="16" alt="Delete Icon">
+                            </a>
+                        </span>
+                    </li>
+                {% endfor %}
+            </ul>
+        {% else %}
+            <p>No news available.</p>
+        {% endif %}
+    </div>
+    <h2>Add News</h2>
+    <form method="post" action="create-news">
+        <label for="title">Title:</label>
+        <input type="text" id="title" name="title" required>
+
+        <label for="description">Description:</label>
+        <textarea id="description" name="description" required></textarea>
+
+        <button type="submit">Create</button>
+    </form>
+    <br>
+    <a href="logout">Logout</a>
+{% endblock %}

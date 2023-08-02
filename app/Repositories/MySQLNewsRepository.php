@@ -1,16 +1,16 @@
 <?php
 namespace App\Repositories;
 
-use App\Repositories\Interfaces\NewsRepositoryInterface;
+use App\Core\Model;
 use PDO;
 use PDOException;
 
-class MySQLNewsRepository implements NewsRepositoryInterface
+class MySQLNewsRepository extends Model
 {
     private PDO $pdo;
 
-    public function __construct(PDO $pdo) {
-        $this->pdo = $pdo;
+    public function __construct() {
+        $this->pdo = static::getDB();
     }
 
     public function createNews($title, $description)
