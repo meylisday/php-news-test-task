@@ -7,7 +7,7 @@ use PDO;
 
 abstract class Model
 {
-    protected static function getDB()
+    protected static function getDB(): ?PDO
     {
         $envData = Helpers::parseEnvFile('.env');
 

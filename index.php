@@ -15,15 +15,15 @@ $routes = [
     new Route('index', '/', [UserController::class, 'index']),
     new Route('login', '/login', [UserController::class, 'login'], ['POST']),
     new Route('news', '/news', [NewsController::class, 'index']),
-    new Route('create-news', '/create-news', [NewsController::class, 'create'], ['POST']),
-    new Route('news-delete', '/news/delete/{id}', [NewsController::class, 'delete']),
+    new Route('create-news', '/news/create', [NewsController::class, 'create'], ['POST']),
+    new Route('delete-news', '/news/delete/{id}', [NewsController::class, 'delete'], ['DELETE']),
+    new Route('update-news', '/news/update/{id}', [NewsController::class, 'update'], ['POST']),
     new Route('logout', '/logout', [UserController::class, 'logout']),
 ];
 $router = new Router($routes, 'http://localhost:8000');
 
 try {
     $route = $router->matchFromPath($_SERVER['REQUEST_URI'], $_SERVER['REQUEST_METHOD']);
-
 
     $handler = $route->getHandler();
     $attributes = $route->getAttributes();
@@ -35,9 +35,7 @@ try {
     if (!is_callable($controller)) {
         $controller = [$controller, $methodName];
     }
-
     echo $controller(...array_values($attributes));
-
 } catch (MethodNotAllowed $exception) {
     header("HTTP/1.0 405 Method Not Allowed");
     exit();

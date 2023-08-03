@@ -6,15 +6,12 @@
     <div class="container">
         <img class="logo" src="../../public/images/logo.svg"/>
         <div>
-            <div class="error">Wrong login data!</div>
-            <form method="POST" action="login">
+            <div class="error" id="login-error" style="display: none;"></div>
+            <form method="POST" action="login" id="login-form">
                 <input type="text" id="username" name="username" placeholder="Username" required>
-
-                <input type="password" id="password" name="password"  placeholder="Password" required>
-
+                <input type="password" id="password" name="password"  placeholder="Password" autocomplete="off" required>
                 <button type="submit">Login</button>
             </form>
         </div>
     </div>
-
 {% endblock %}

@@ -7,8 +7,7 @@ use RuntimeException;
 
 abstract class Controller
 {
-
-    protected $route_params = [];
+    protected array $route_params = [];
 
     public function __construct($route_params)
     {

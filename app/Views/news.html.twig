@@ -3,39 +3,57 @@
 {% block title %}News{% endblock %}
 
 {% block body %}
-    <h1>All news</h1>
-    <div class="news-list">
-        {% if news is not empty %}
-            <ul>
-                {% for newsItem in news %}
-                    <li>
-                        <strong>{{ newsItem.title }}</strong><br>
-                        {{ newsItem.description }}
-                        <span>
-                            <a href="#" title="Edit News">
-                                <img src="../../public/images/pencil.svg" width="16" height="16" alt="Edit Icon">
-                            </a>
-                            <a href="/news/delete/{{ newsItem.id }}" title="Delete News">
-                                <img src="../../public/images/close.svg" width="16" height="16" alt="Delete Icon">
-                            </a>
-                        </span>
-                    </li>
-                {% endfor %}
-            </ul>
-        {% else %}
-            <p>No news available.</p>
-        {% endif %}
+    <div class="container">
+        <img class="logo" src="../../public/images/logo.svg"/>
+        <div class="error" style="display: none;"></div>
+        <div class="success" style="display: none;"></div>
+        <h4>All news</h4>
+        <div class="news-list">
+            {% if news is not empty %}
+                <ul>
+                    {% for newsItem in news %}
+                        <li class="news-item" data-id="{{ newsItem.id }}">
+                            <div>
+                                <span class="news-title">{{ newsItem.title }}</span>
+                                <span class="news-description">{{ newsItem.description }}</span>
+                            </div>
+                            <span>
+                                <a href="#" class="icon edit-btn" title="Edit News" data-id="{{ newsItem.id }}"
+                                   data-title="{{ newsItem.title }}" data-description="{{ newsItem.description }}">
+                                    <img src="../../public/images/pencil.svg" width="12" height="12" alt="Edit Icon">
+                                </a>
+                                <a href="/news/delete/{{ newsItem.id }}" class="icon delete-btn" title="Delete News">
+                                    <img src="../../public/images/close.svg" width="12" height="12" alt="Delete Icon">
+                                </a>
+                            </span>
+                        </li>
+                    {% endfor %}
+                </ul>
+            {% else %}
+                <p>No news available.</p>
+            {% endif %}
+        </div>
+
+        <form method="POST" action="create-news" id="create-form">
+            <h4>Add News</h4>
+            <input type="text" id="title" name="title" placeholder="Title" required>
+            <textarea id="description" name="description" placeholder="Description" required></textarea>
+            <button type="submit">Create</button>
+        </form>
+
+        <form method="POST" action="update-news" id="edit-form" style="display: none;">
+            <div class="edit-news-header">
+                <h4>Edit News</h4>
+                <a href="#" id="close-edit-form">
+                    <img src="../../public/images/close.svg" width="16" height="16" alt="close-edit-form">
+                </a>
+            </div>
+            <input type="hidden" id="edit-id" name="id">
+            <input type="text" id="edit-title" name="title" placeholder="Title" required>
+            <textarea id="edit-description" name="description" placeholder="Description" required></textarea>
+            <button type="submit" id="update-button" data-id="">Save</button>
+        </form>
+
+        <a class="btn" href="logout">Logout</a>
     </div>
-    <h2>Add News</h2>
-    <form method="post" action="create-news">
-        <label for="title">Title:</label>
-        <input type="text" id="title" name="title" required>
-
-        <label for="description">Description:</label>
-        <textarea id="description" name="description" required></textarea>
-
-        <button type="submit">Create</button>
-    </form>
-    <br>
-    <a href="logout">Logout</a>
 {% endblock %}

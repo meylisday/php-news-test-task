@@ -5,7 +5,7 @@ CREATE TABLE users
     password VARCHAR(255) NOT NULL
 );
 
-INSERT INTO users (username, password) VALUES ('admin', 'test');
+INSERT INTO users (username, password) VALUES ('admin', '$2y$10$rY0qb5761crBbvqOvoEuZud3zJJldGtKZjQYGLd53ojHHOWYQOMeS');
 
 CREATE TABLE news
 (

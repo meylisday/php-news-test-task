@@ -5,6 +5,7 @@ namespace App\Controllers;
 use App\Core\BaseController;
 use App\Core\View;
 use App\Repositories\MySQLUserRepository;
+use JsonException;
 
 class UserController extends BaseController
 {
@@ -13,28 +14,36 @@ class UserController extends BaseController
         View::renderTemplate('index.html.twig');
     }
 
-    public function login() {
-        if (isset($_POST['username']) || isset($_POST['password'])) {
-            $mySQLUserRepository = new MySQLUserRepository();
-            $username = $_POST['username'];
-            $password = $_POST['password'];
-            $user = $mySQLUserRepository->getUserByUsername($username);
-
-            if ($user && $password === $user->getPassword()) {
-                session_start();
-                $_SESSION['user_id'] = $user->getId();
-
-                header('Location: /news');
-                exit();
-            } else {
-                echo 'Error';
-                View::renderTemplate('index.html.twig');
-            }
+    /**
+     * @throws JsonException
+     */
+    public function login()
+    {
+        if (!isset($_POST['username'], $_POST['password'])) {
+            return json_encode(['status' => 'error', 'message' => 'Invalid input data'], JSON_THROW_ON_ERROR);
         }
-        View::renderTemplate('index.html.twig');
+
+        $mySQLUserRepository = new MySQLUserRepository();
+        $username = $_POST['username'];
+        $password = $_POST['password'];
+        $user = $mySQLUserRepository->getUserByUsername($username);
+
+        if (!$user) {
+            return json_encode(['status' => 'error', 'message' => 'Wrong login data!'], JSON_THROW_ON_ERROR);
+        }
+
+        if (!password_verify($password, $user->getPassword())) {
+            return json_encode(['status' => 'error', 'message' => 'Wrong login data!'], JSON_THROW_ON_ERROR);
+        }
+
+        session_start();
+        $_SESSION['user_id'] = $user->getId();
+
+        return json_encode(['status' => 'success'], JSON_THROW_ON_ERROR);
     }
 
-    public function logout() {
+    public function logout()
+    {
         session_start();
         unset($_SESSION['user_id']);
         session_destroy();

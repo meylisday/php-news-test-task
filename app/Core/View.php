@@ -12,7 +12,7 @@ class View
     {
         extract($args, EXTR_SKIP);
 
-        $file = dirname(__DIR__) . "/Views/$view";  // relative to Core directory
+        $file = dirname(__DIR__) . "/Views/$view";
 
         if (is_readable($file)) {
             require $file;

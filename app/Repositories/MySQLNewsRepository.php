@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Repositories;
 
 use App\Core\Model;
@@ -9,7 +10,8 @@ class MySQLNewsRepository extends Model
 {
     private PDO $pdo;
 
-    public function __construct() {
+    public function __construct()
+    {
         $this->pdo = static::getDB();
     }
 
@@ -19,7 +21,7 @@ class MySQLNewsRepository extends Model
             $query = "INSERT INTO news (title, description) VALUES (:title, :description)";
             $stmt = $this->pdo->prepare($query);
             $stmt->execute(['title' => $title, 'description' => $description]);
-            return $this->pdo->lastInsertId();
+            return $this->getNewsById($this->pdo->lastInsertId());
         } catch (PDOException $e) {
             die("Error creating news: " . $e->getMessage());
         }
@@ -31,6 +33,7 @@ class MySQLNewsRepository extends Model
             $query = "UPDATE news SET title = :title, description = :description WHERE id = :id";
             $stmt = $this->pdo->prepare($query);
             $stmt->execute(['id' => $id, 'title' => $title, 'description' => $description]);
+            return $this->getNewsById($id);
         } catch (PDOException $e) {
             die("Error updating news: " . $e->getMessage());
         }

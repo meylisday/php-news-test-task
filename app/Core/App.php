@@ -1,12 +1,10 @@
 <?php
 namespace App\Core;
 
-use App\Controllers\UserController;
-
 class App
 {
-    protected $controller = 'UserController';
-    protected $method = 'index';
+    protected mixed $controller = 'UserController';
+    protected string $method = 'index';
     protected $params = [];
 
     public function __construct()
