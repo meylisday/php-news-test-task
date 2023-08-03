@@ -1,4 +1,9 @@
 $(document).ready(function () {
+  if ($('.news-item').length === 0) {
+    $('.no-items').show();
+  } else {
+    $('.no-items').hide();
+  }
   const createForm = $('#create-form');
   const editForm = $('#edit-form');
   const editIdInput = $('#edit-id');
@@ -19,8 +24,7 @@ $(document).ready(function () {
       success: function (response) {
         if (response.status === 'success') {
           $('.success').text(response.message).show();
-
-          const newsList = $('.news-list ul');
+          const newsList = $('.news-list');
           const newNewsItem = `
             <li class="news-item" data-id="${response.news.id}">
               <div>
@@ -41,6 +45,9 @@ $(document).ready(function () {
           $('#title').val('');
           $('#description').val('');
 
+          if ($('.news-item').length > 0) {
+            $('.no-items').hide();
+          }
         } else {
           $('.error').text(response.message).show();
         }
@@ -147,6 +154,9 @@ $(document).ready(function () {
         if (response.status === 'success') {
           $('.success').text(response.message).show();
           newsItem.remove();
+          if ($('.news-item').length === 0) {
+            $('.no-items').show();
+          }
         } else {
           $('.error').text(response.message).show();
         }

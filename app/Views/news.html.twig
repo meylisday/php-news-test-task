@@ -9,29 +9,26 @@
         <div class="success" style="display: none;"></div>
         <h4>All news</h4>
         <div class="news-list">
-            {% if news is not empty %}
-                <ul>
-                    {% for newsItem in news %}
-                        <li class="news-item" data-id="{{ newsItem.id }}">
-                            <div>
-                                <span class="news-title">{{ newsItem.title }}</span>
-                                <span class="news-description">{{ newsItem.description }}</span>
-                            </div>
-                            <span>
-                                <a href="#" class="icon edit-btn" title="Edit News" data-id="{{ newsItem.id }}"
-                                   data-title="{{ newsItem.title }}" data-description="{{ newsItem.description }}">
-                                    <img src="../../public/images/pencil.svg" width="12" height="12" alt="Edit Icon">
-                                </a>
-                                <a href="/news/delete/{{ newsItem.id }}" class="icon delete-btn" title="Delete News">
-                                    <img src="../../public/images/close.svg" width="12" height="12" alt="Delete Icon">
-                                </a>
-                            </span>
-                        </li>
-                    {% endfor %}
-                </ul>
-            {% else %}
-                <p>No news available.</p>
-            {% endif %}
+            <ul>
+                {% for newsItem in news %}
+                    <li class="news-item" data-id="{{ newsItem.id }}">
+                        <div>
+                            <span class="news-title">{{ newsItem.title }}</span>
+                            <span class="news-description">{{ newsItem.description }}</span>
+                        </div>
+                        <span>
+                            <a href="#" class="icon edit-btn" title="Edit News" data-id="{{ newsItem.id }}"
+                               data-title="{{ newsItem.title }}" data-description="{{ newsItem.description }}">
+                                <img src="../../public/images/pencil.svg" width="12" height="12" alt="Edit Icon">
+                            </a>
+                            <a href="/news/delete/{{ newsItem.id }}" class="icon delete-btn" title="Delete News">
+                                <img src="../../public/images/close.svg" width="12" height="12" alt="Delete Icon">
+                            </a>
+                        </span>
+                    </li>
+                {% endfor %}
+            </ul>
+            <p class="no-items">No news available.</p>
         </div>
 
         <form method="POST" action="create-news" id="create-form">

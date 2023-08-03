@@ -92,11 +92,12 @@ button, .btn {
     background-color: #16396b;
     border: none;
     color: white;
-    padding: 1rem;
+    padding: 0.75rem;
     margin: 0.5rem 0;
     border-radius: 0.125rem;
     box-sizing: border-box;
     text-align: center;
+    cursor: pointer;
 }
 
 .news-title {
